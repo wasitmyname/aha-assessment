@@ -71,7 +71,12 @@
                     <div class="text-center">
                         <button type="submit" class="btn app-btn-primary w-100 theme-btn mx-auto">Sign In</button>
                     </div>
+                    <div class="auth-option text-center mt-4">
+                        No Account? Sign up
+                        <a class="text-link" href="{{ route('signup.show') }}">here</a>
+                    </div>
                     <hr class="my-4">
+                    <p class="auth-option text-center">Need fast lane? Try signing in with social accounts.</p>
                     <div class="d-grid mb-2">
                         <a href="{{ route('oauth.redirect', {provider: 'google'}) }}" class="btn btn-danger fw-bold">
                             <i class="fab fa-google me-2"></i> Sign In with Google
@@ -83,10 +88,6 @@
                         </a>
                     </div>
                 </form>
-                <div class="auth-option text-center pt-5">
-                    No Account? Sign up
-                    <a class="text-link" href="{{ route('signup.show') }}">here</a>
-                </div>
             </div>
         </div>
         <footer class="app-auth-footer">
@@ -94,4 +95,8 @@
         </footer>
     </div>
 </div>
+@end
+
+@section('js')
+<script src="{{ asset('assets/js/remove-hash-from-url.js') }}"></script>
 @end

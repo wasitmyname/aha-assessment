@@ -11,3 +11,7 @@ var Utils = function() {
         }
     };
 }();
+
+$(document).ready(function() {
+    Utils.removeHashFromUrl();
+});
