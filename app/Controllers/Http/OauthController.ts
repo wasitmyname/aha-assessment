@@ -1,12 +1,12 @@
 import type { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
-import User from "App/Models/User";
+// import User from "App/Models/User";
 
 export default class OauthController {
   public async redirect({ ally, params }: HttpContextContract) {
     return ally.use(params.provider).redirect()
   }
 
-  public async callback({ ally, params, auth }: HttpContextContract) {
+  public async callback({ ally, params }: HttpContextContract) {
     const provider = ally.use(params.provider)
 
     /**
