@@ -1,0 +1,53 @@
+@layout('layout')
+@set('title', 'Verification Link')
+
+@section('content')
+<div class="row g-0 app-auth-wrapper">
+    <div class="d-flex flex-column align-content-end">
+        <div class="app-auth-body m-auto">
+            <h2 class="text-center mb-5">Verification Link</h2>
+            <p class="text-center">Hey, looks like you need a new verification link.</p>
+            <div class="auth-form-container text-start">
+                <form class="auth-form login-form" method="post" action="{{ route('link.send') }}" novalidate>
+                    @if(flashMessages.has('errors.attempt'))
+                    <div class="alert alert-danger alert-dismissible fade show d-flex align-items-center mb-3" role="alert">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Warning:">
+                            <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"></path>
+                        </svg>
+                        <div>{{ flashMessages.get('errors.attempt') }}</div>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    @end
+                    <div class="email mb-3">
+                        <label class="sr-only">Email</label>
+                        <input name="email" type="email" placeholder="Email address" required
+                            value="{{ flashMessages.get('email') ?? '' }}"
+                            class="form-control
+                                @if(flashMessages.has('errors.email'))
+                                {{ 'is-invalid' }}
+                                @end
+                            "
+                        >
+                        @if(flashMessages.has('errors.email'))
+                        <div class="invalid-feedback">
+                            {{ flashMessages.get('errors.email')[0] }}
+                        </div>
+                        @end
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="btn app-btn-primary w-100 theme-btn mx-auto">Send It</button>
+                    </div>
+                </form>
+                <div class="auth-option text-center pt-5">
+                    <a class="app-link" href="{{ route('signin.show') }}">Sign in</a>
+                    <span class="px-2">|</span>
+                    <a class="app-link" href="{{ route('signup.show') }}">Sign up</a>
+                </div>
+            </div>
+        </div>
+        <footer class="app-auth-footer">
+          @include('components/license')
+        </footer>
+    </div>
+</div>
+@end

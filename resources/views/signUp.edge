@@ -1,0 +1,69 @@
+@layout('layout')
+@set('title', 'Sign Up')
+
+@section('content')
+<div class="row g-0 app-auth-wrapper">
+    <div class="d-flex flex-column align-content-end">
+        <div class="app-auth-body m-auto">
+            <h2 class="text-center mb-5">Sign Up</h2>
+            <div class="auth-form-container text-start">
+                <form class="auth-form login-form" method="post" action="{{ route('signup.submit') }}" novalidate>
+                    <div class="email mb-3">
+                        <label class="sr-only">Email</label>
+                        <input name="email" type="email" placeholder="Email address" required
+                            value="{{ flashMessages.get('email') ?? '' }}"
+                            class="form-control
+                                @if(flashMessages.has('errors.email'))
+                                {{ 'is-invalid' }}
+                                @end
+                            "
+                        >
+                        @if(flashMessages.has('errors.email'))
+                        <div class="invalid-feedback">
+                            {{ flashMessages.get('errors.email')[0] }}
+                        </div>
+                        @end
+                    </div>
+                    <div class="password mb-3">
+                        <label class="sr-only">Password</label>
+                        <input name="password" type="password" placeholder="Password" required
+                            value="{{ flashMessages.get('password') ?? '' }}"
+                            class="form-control
+                                @if(flashMessages.has('errors.password'))
+                                {{ 'is-invalid' }}
+                                @end
+                            "
+                        >
+                        @if(flashMessages.has('errors.password'))
+                        <div class="invalid-feedback">
+                            {{ flashMessages.get('errors.password')[0] }}
+                        </div>
+                        @end
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="btn app-btn-primary w-100 theme-btn mx-auto">Sign Up</button>
+                    </div>
+                    <hr class="my-4">
+                    <div class="d-grid mb-2">
+                        <a href="#" class="btn btn-danger fw-bold">
+                            <i class="fab fa-google me-2"></i> Sign Up with Google
+                        </a>
+                    </div>
+                    <div class="d-grid">
+                        <a href="#" class="btn btn-primary fw-bold">
+                            <i class="fab fa-facebook-f me-2"></i> Sign Up with Facebook
+                        </a>
+                    </div>
+                </form>
+                <div class="auth-option text-center pt-5">
+                    Already sign up? Sign in
+                    <a class="text-link" href="{{ route('signin.show') }}">here</a>
+                </div>
+            </div>
+        </div>
+        <footer class="app-auth-footer">
+          @include('components/license')
+        </footer>
+    </div>
+</div>
+@end
