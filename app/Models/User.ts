@@ -7,7 +7,7 @@ export default class User extends BaseModel {
   public id: number
 
   @column()
-  public name: string | null
+  public name: string
 
   @column()
   public email: string
@@ -16,7 +16,13 @@ export default class User extends BaseModel {
   public password: string
 
   @column()
+  public avatarUrl: string | null
+
+  @column()
   public rememberToken: string | null
+
+  @column()
+  public oauthToken: string | null
 
   @column.dateTime()
   public emailVerifiedAt: DateTime | null
@@ -34,6 +40,11 @@ export default class User extends BaseModel {
     }
   }
 
+  /**
+   * To speed up sign up, we didn't require user to fill in their name
+   * we'll use email address as their name for now
+   * user can change it later in their personal profile page
+   */
   @beforeSave()
   public static async setName (user: User) {
     if (!user.name) {
