@@ -8,6 +8,11 @@ export default class OauthController {
   }
 
   public async callback({ ally, params, response, session, auth, request }: HttpContextContract) {
+    /** 
+     * facebook intentionally adds # _=_ in url
+     * we'll remove that in frontend
+    */
+   
     const provider = ally.use(params.provider)
 
     /**
