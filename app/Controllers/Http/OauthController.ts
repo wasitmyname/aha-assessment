@@ -7,7 +7,7 @@ export default class OauthController {
     return ally.use(params.provider).redirect()
   }
 
-  public async callback({ ally, params, response, session, auth }: HttpContextContract) {
+  public async callback({ ally, params, response, session, auth, request }: HttpContextContract) {
     const provider = ally.use(params.provider)
 
     /**
@@ -75,6 +75,9 @@ export default class OauthController {
     if (Object.keys(updated).length) {
       await user.merge(updated).save()
     }
+
+    console.log('request', request)
+    console.log('params', params)
 
     /**
      * Finally, let's rock
