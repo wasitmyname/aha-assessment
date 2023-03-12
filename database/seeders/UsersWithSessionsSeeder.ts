@@ -5,16 +5,16 @@ import { UserFactory } from 'Database/factories/UserFactory'
 import { DateTime, Interval, Settings } from 'luxon'
 
 export default class UsersWithSessionsSeeder extends BaseSeeder {
-  startsAt = DateTime.now().minus({months: 2})
-  endsAt = DateTime.now().plus({months: 2})
+  startsAt = DateTime.now().minus({months: 1})
+  endsAt = DateTime.now().plus({months: 1})
   now = DateTime.now().valueOf()
 
   public async run () {
-    await this.addFirstUser()
-    await this.addUsersFromLastTwoMonthsUntilNextTwoMonths()
+    await this.addDemoUser()
+    await this.addUsersFromLastMonthUntilNextMonth()
   }
 
-  private async addFirstUser() {
+  private async addDemoUser() {
     await User.create({
       name: 'John Doe',
       email: 'johndoe@domain.test',
@@ -23,7 +23,7 @@ export default class UsersWithSessionsSeeder extends BaseSeeder {
     })
   }
 
-  private async addUsersFromLastTwoMonthsUntilNextTwoMonths() {
+  private async addUsersFromLastMonthUntilNextMonth() {
     Settings.now = () => this.startsAt.valueOf()
     let day = this.startsAt
 
@@ -69,11 +69,11 @@ export default class UsersWithSessionsSeeder extends BaseSeeder {
   }
 
   private makeRandomTotalUsers() {
-    return this.chooseRandomlyWithinRange(1, 25)
+    return this.chooseRandomlyWithinRange(1, 5)
   }
 
   private makeRandomTotalSessions() {
-    return this.chooseRandomlyWithinRange(1, 30)
+    return this.chooseRandomlyWithinRange(1, 15)
   }
 
   private chooseActiveAtRandomly(time: Interval) : DateTime {
