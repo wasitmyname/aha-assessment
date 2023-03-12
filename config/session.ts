@@ -73,7 +73,7 @@ export default sessionConfig({
   | Example: `2 days`, `2.5 hrs`, `1y`, `5s` and so on.
   |
   */
-  age: '2h',
+  age: '5 minutes',
 
   /*
   |--------------------------------------------------------------------------
@@ -113,4 +113,15 @@ export default sessionConfig({
   |
   */
   redisConnection: 'local',
+  
+  /*
+  |--------------------------------------------------------------------------
+  | Database driver
+  |--------------------------------------------------------------------------
+  |
+  | The database connection you want session driver to use
+  |
+  */
+  database: {},
+  memory: {},
 })

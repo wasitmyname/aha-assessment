@@ -4,5 +4,6 @@ declare module '@ioc:Adonis/Core/Validator' {
         hasUppercase(): Rule,
         hasDigit(): Rule,
         hasSymbol(): Rule,
+        oldPasswordMatch(hashed: string | null): Rule,
     }
 }

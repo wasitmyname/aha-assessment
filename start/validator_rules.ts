@@ -1,5 +1,6 @@
 import { validator } from '@ioc:Adonis/Core/Validator'
 import PasswordValidator from 'password-validator'
+import Hash from '@ioc:Adonis/Core/Hash'
 
 validator.rule(
     'hasLowercase',
@@ -14,7 +15,7 @@ validator.rule(
             options.errorReporter.report(
                 options.pointer,
                 'hasLowercase',
-                'hasLowercase validation failed',
+                'hasLowercase must contains a lowercase',
                 options.arrayExpressionPointer
             )
         }
@@ -22,7 +23,6 @@ validator.rule(
     () => {
         return {
             async: true,
-            compiledOptions: {},
         }
     }
 )
@@ -40,7 +40,7 @@ validator.rule(
             options.errorReporter.report(
                 options.pointer,
                 'hasUppercase',
-                'hasUppercase validation failed',
+                'hasUppercase must contains an uppercase',
                 options.arrayExpressionPointer
             )
         }
@@ -48,7 +48,6 @@ validator.rule(
     () => {
         return {
             async: true,
-            compiledOptions: {},
         }
     }
 )
@@ -66,7 +65,7 @@ validator.rule(
             options.errorReporter.report(
                 options.pointer,
                 'hasDigit',
-                'hasDigit validation failed',
+                'hasDigit must contains a number',
                 options.arrayExpressionPointer
             )
         }
@@ -74,7 +73,6 @@ validator.rule(
     () => {
         return {
             async: true,
-            compiledOptions: {},
         }
     }
 )
@@ -92,7 +90,7 @@ validator.rule(
             options.errorReporter.report(
                 options.pointer,
                 'hasSymbol',
-                'hasSymbol validation failed',
+                'hasSymbol must contains a symbol',
                 options.arrayExpressionPointer
             )
         }
@@ -100,7 +98,31 @@ validator.rule(
     () => {
         return {
             async: true,
-            compiledOptions: {},
+        }
+    }
+)
+
+validator.rule(
+    'oldPasswordMatch',
+    async (value, [hashed], options) => {
+        if (typeof value !== 'string') {
+            return
+        }
+
+        const match = await Hash.verify(hashed, value)
+
+        if (!match) {
+            options.errorReporter.report(
+                options.pointer,
+                'oldPasswordMatch',
+                'oldPasswordMatch does not match',
+                options.arrayExpressionPointer
+            )
+        }
+    },
+    () => {
+        return {
+            async: true,
         }
     }
 )

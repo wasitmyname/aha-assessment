@@ -1,15 +1,18 @@
 import type { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
 import User from "App/Models/User";
 import { DateTime } from 'luxon'
+import Event from '@ioc:Adonis/Core/Event'
+import Logger from '@ioc:Adonis/Core/Logger'
+import { Hash } from "@adonisjs/core/build/standalone";
 
 export default class OauthController {
   public async redirect({ ally, params }: HttpContextContract) {
     return ally.use(params.provider).redirect()
   }
 
-  public async callback({ ally, params, response, session, auth, request }: HttpContextContract) {
+  public async callback({ ally, params, response, session, auth }: HttpContextContract) {
     /** 
-     * facebook intentionally adds # _=_ in url
+     * facebook intentionally adds #_=_ in url
      * we'll remove that in frontend
     */
    
@@ -40,7 +43,7 @@ export default class OauthController {
     }
 
     /**
-     * All seems good, proceed with sign in process
+     * All good, proceed with sign in process
      */
     const providedUser = await provider.user()
 
@@ -57,6 +60,7 @@ export default class OauthController {
         avatarUrl: providedUser.avatarUrl,
         oauthToken: providedUser.token.token,
         emailVerifiedAt: DateTime.now(),
+        // password: 
       })
     }
 
@@ -81,13 +85,27 @@ export default class OauthController {
       await user.merge(updated).save()
     }
 
-    console.log('request', request)
-    console.log('params', params)
-
     /**
      * Finally, let's rock
      */
     await auth.login(user)
-    return response.redirect().toRoute('dashboard')
+    
+
+    /**
+     * Should warn user to set a password asap
+     * otherwise can't use traditional login at all
+     */
+    if (!user.password) {
+      session.flash('warning.empty_password', "Heads up! Don't forget to set your password. I bet you'll need it later.")
+    }
+
+    if (auth.isLoggedIn && auth.user) {
+      /**
+       * Update last active timestamp
+       */
+      Event.emit('user:active', auth.user)
+    }
+
+    return response.redirect().toRoute('dashboard.show')
   }
 }

@@ -5,13 +5,13 @@ import SendVerifyEmailCase from 'App/Cases/SendVerifyEmailCase';
 
 export default class SignUpController {
   public async show({ view }: HttpContextContract) {
-    return view.render('signUp')
+    return view.render('guests/signUp')
   }
 
   public async submit({ request, response }: HttpContextContract) {
     const data = await request.validate(SignUpValidator)
     const user = await User.create(data)
-    await new SendVerifyEmailCase(user.email).send()
+    new SendVerifyEmailCase(user.email)
     return response.redirect().toRoute('signup.verify')
   }
 

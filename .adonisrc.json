@@ -17,7 +17,8 @@
     "preloads": [
         "./start/routes",
         "./start/kernel",
-        "./start/validator_rules"
+        "./start/validator_rules",
+        "./start/events"
     ],
     "providers": [
         "./providers/AppProvider",
@@ -30,8 +31,7 @@
         "@adonisjs/mail",
         "@adonisjs/ally"
     ],
-    "metaFiles": [
-        {
+    "metaFiles": [{
             "pattern": "public/**",
             "reloadServer": false
         },
@@ -44,15 +44,13 @@
         "@adonisjs/repl"
     ],
     "tests": {
-        "suites": [
-            {
-                "name": "functional",
-                "files": [
-                    "tests/functional/**/*.spec(.ts|.js)"
-                ],
-                "timeout": 60000
-            }
-        ]
+        "suites": [{
+            "name": "functional",
+            "files": [
+                "tests/functional/**/*.spec(.ts|.js)"
+            ],
+            "timeout": 60000
+        }]
     },
     "testProviders": [
         "@japa/preset-adonis/TestsProvider"

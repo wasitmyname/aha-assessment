@@ -1,0 +1,103 @@
+@layout('layouts/base')
+@set('body', 'app')
+@set('title', 'Profile')
+
+@section('content')
+  @include('includes/nav')
+  <div class="app-wrapper">
+    <div class="app-content pt-3 p-md-3 p-lg-4">
+      <div class="container-xl">
+        <h1 class="app-page-title">My Account</h1>
+        <div class="row gy-4">
+          <div class="col-12 col-lg-6">
+            <div class="app-card app-card-account shadow-sm d-flex flex-column align-items-start pb-5">
+              <div class="app-card-header p-3 border-bottom-0">
+                <div class="row align-items-center gx-3">
+                  <div class="col-auto">
+                    <div class="app-icon-holder">
+                      <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-person" fill="currentColor"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd"
+                          d="M10 5a2 2 0 1 1-4 0 2 2 0 0 1 4 0zM8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm6 5c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z" />
+                      </svg>
+                    </div>
+                  </div>
+                  <div class="col-auto">
+                    <h4 class="app-card-title">Profile</h4>
+                  </div>
+                </div>
+                @if (flashMessages.has('message'))
+                <div class="alert alert-success alert-dismissible fade show d-flex align-items-center mt-4" role="alert">
+                    <div>{{ flashMessages.get('message') }}</div>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                @end
+              </div>
+              <div class="app-card-body px-4 w-100">
+                <div class="item border-bottom py-3">
+                  <div class="row justify-content-between align-items-center">
+                    <div class="col-auto">
+                      <div class="item-label mb-2"><strong>Photo</strong></div>
+                      <div class="item-data"><img class="profile-image" src="{{ user.avatarUrl ?? asset('assets/images/avatar/female.png') }}" alt=""></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="item border-bottom py-3">
+                  <form method="post" action="{{ route('profile.updateName') }}">
+                    <div class="row justify-content-between align-items-center">
+                      <div class="col-auto">
+                        <div class="item-label"><strong>Name</strong></div>
+                        <div class="item-data name-label">{{ user.name }}</div>
+                        <input type="text" class="form-control name-input d-none" name="name" required>
+                      </div>
+                      <div class="col text-end">
+                        <a class="btn btn-sm app-btn-secondary edit-name" href="javascript:;">edit</a>
+                        <button class="btn btn-sm app-btn-primary save-name d-none">save</button>
+                        <a class="btn btn-sm app-btn-secondary show-name d-none" href="javascript:;">cancel</a>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+                <div class="item py-3">
+                  <div class="row justify-content-between align-items-center">
+                    <div class="col-auto">
+                      <div class="item-label"><strong>Email</strong></div>
+                      <div class="item-data">{{ user.email }}</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <footer class="app-footer">
+      @include('includes/license')
+    </footer>
+  </div>
+@end
+
+@section('js')
+  @super
+  <script src="{{ asset('assets/js/portal.js') }}"></script>
+  <script>
+    $(document).ready(function() {
+        $('.edit-name').on('click', function () {
+          $(this).addClass('d-none')
+          $('.name-label').addClass('d-none')
+          $('.name-input').removeClass('d-none')
+          $('.save-name').removeClass('d-none')
+          $('.show-name').removeClass('d-none')
+        })
+
+        $('.show-name').on('click', function () {
+          $(this).addClass('d-none')
+          $('.save-name').addClass('d-none')
+          $('.name-input').addClass('d-none')
+          $('.name-label').removeClass('d-none')
+          $('.edit-name').removeClass('d-none')
+        })
+    })
+  </script>
+@end

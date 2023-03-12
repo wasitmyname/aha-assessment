@@ -1,6 +1,6 @@
 import Route from '@ioc:Adonis/Core/Route'
 
-Route.on('').render('welcome').as('welcome');
+Route.on('').render('guests/welcome').as('welcome');
 
 Route.group(() => {
   Route.get('', 'SignUpController.show').as('show')
@@ -25,5 +25,21 @@ Route.group(() => {
   Route.get(':provider/callback', 'OauthController.callback').as('callback')
 }).prefix('oauth').as('oauth')
 
-Route.get('dashboard', 'DashboardController.show').as('dashboard')//.middleware('auth')
+Route.group(() => {
+  Route.group(() => {
+    Route.get('', 'DashboardController.show').as('show')
+    Route.post('users', 'DashboardController.users').as('users')
+  }).prefix('dashboard').as('dashboard')
+
+  Route.group(() => {
+    Route.get('', 'ProfileController.show').as('show')
+    Route.post('updateName', 'ProfileController.updateName').as('updateName')
+  }).prefix('profile').as('profile')
+  
+  Route.group(() => {
+    Route.get('', 'PasswordController.show').as('show')
+    Route.post('update', 'PasswordController.update').as('update')
+  }).prefix('password').as('password')
+}).middleware('auth')
+
 Route.get('signout', 'SignOutController.submit').as('signout')

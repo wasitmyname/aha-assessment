@@ -1,6 +1,7 @@
 import { DateTime } from 'luxon'
 import Hash from '@ioc:Adonis/Core/Hash'
-import { column, beforeSave, BaseModel } from '@ioc:Adonis/Lucid/Orm'
+import { column, beforeSave, BaseModel, hasMany, HasMany } from '@ioc:Adonis/Lucid/Orm'
+import Session from './Session'
 
 export default class User extends BaseModel {
   @column({ isPrimary: true })
@@ -12,14 +13,18 @@ export default class User extends BaseModel {
   @column()
   public email: string
 
+  /**
+   * To accomodate social oauth feature, we had to sacrifice for empty password
+   * This allows signing up when user doesn't exists yet
+   */
   @column({ serializeAs: null })
-  public password: string
+  public password: string | null
 
   @column()
   public avatarUrl: string | null
 
   @column()
-  public rememberToken: string | null
+  public rememberMeToken: string | null
 
   @column()
   public oauthToken: string | null
@@ -35,15 +40,14 @@ export default class User extends BaseModel {
 
   @beforeSave()
   public static async hashPassword (user: User) {
-    if (user.$dirty.password) {
+    if (user.password && user.$dirty.password) {
       user.password = await Hash.make(user.password)
     }
   }
 
   /**
    * To speed up sign up, we didn't require user to fill in their name
-   * we'll use email address as their name for now
-   * user can change it later in their personal profile page
+   * We'll use name in email address by default and user can change it later in their profile page
    */
   @beforeSave()
   public static async setName (user: User) {
@@ -51,4 +55,7 @@ export default class User extends BaseModel {
       user.name = user.email.split('@')[0]
     }
   }
+
+  @hasMany(() => Session)
+  public sessions: HasMany<typeof Session>
 }

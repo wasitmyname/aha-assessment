@@ -1,0 +1,19 @@
+@layout('layouts/base')
+@set('title', 'Verify Email')
+
+@section('content')
+<div class="row g-0 app-auth-wrapper">
+    <div class="col-12 col-md-7 col-lg-6 auth-main-col text-center p-5">
+        <div class="d-flex flex-column align-content-end">
+            <div class="m-auto text-center">
+                <h1 class="mb-5 fw-light">Yay! You're almost there</h1>
+                <p>To login, please verify your email first. We've sent verification link to your mailbox.</p>
+                <p>Incase you lost it, you can always get a new verification link <a href="{{ route('link.show') }}" class="text-decoration-none">here</a>.</p>
+            </div>
+            <footer class="app-auth-footer">
+                @include('includes/license')
+            </footer>
+        </div>
+    </div>
+</div>
+@end

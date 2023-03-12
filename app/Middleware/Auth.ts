@@ -2,6 +2,7 @@ import { AuthenticationException } from '@adonisjs/auth/build/standalone'
 import type { GuardsList } from '@ioc:Adonis/Addons/Auth'
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Route from '@ioc:Adonis/Core/Route'
+import Event from '@ioc:Adonis/Core/Event'
 
 /**
  * Auth middleware is meant to restrict un-authenticated access to a given route
@@ -71,7 +72,23 @@ export default class AuthMiddleware {
      * the config file
      */
     const guards = customGuards.length ? customGuards : [auth.name]
+
     await this.authenticate(auth, guards)
+
+    if (auth.isLoggedIn && auth.user) {
+      /**
+       * Update last active timestamp
+       */
+      Event.emit('user:active', auth.user)
+    }
+
+    if (auth.isLoggedOut && auth.user) {
+      /**
+       * Mark user signed out
+       */
+      Event.emit('user:inactive', auth.user)
+    }
+
     await next()
   }
 }

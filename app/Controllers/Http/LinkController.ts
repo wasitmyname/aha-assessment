@@ -6,7 +6,7 @@ import SendVerifyEmailCase from 'App/Cases/SendVerifyEmailCase';
 
 export default class LinkController {
   public async show({ view }: HttpContextContract) {
-    return view.render('verify/link')
+    return view.render('guests/verify/link')
   }
 
   public async send({ request, response }: HttpContextContract) {
@@ -18,7 +18,7 @@ export default class LinkController {
     try {
       const user = await User.query().where('email', data.email).first()
       if (user) {
-        await new SendVerifyEmailCase(user.email).send()
+        new SendVerifyEmailCase(user.email)
       }
     } catch (_error) {}
 
@@ -26,7 +26,7 @@ export default class LinkController {
   }
 
   public async sent({ view }: HttpContextContract) {
-    return view.render('verify/email')
+    return view.render('guests/verify/email')
   }
 
   public async verify({ request, response, auth }: HttpContextContract) {
@@ -44,8 +44,8 @@ export default class LinkController {
       await user.merge({ emailVerifiedAt: DateTime.now() }).save()
     }
 
-    await auth.login(user)
+    await auth.use('web').login(user)
 
-    return response.redirect().toRoute('dashboard')
+    return response.redirect().toRoute('dashboard.show')
   }
 }
