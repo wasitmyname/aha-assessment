@@ -2,8 +2,6 @@ import type { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
 import User from "App/Models/User";
 import { DateTime } from 'luxon'
 import Event from '@ioc:Adonis/Core/Event'
-import Logger from '@ioc:Adonis/Core/Logger'
-import { Hash } from "@adonisjs/core/build/standalone";
 
 export default class OauthController {
   public async redirect({ ally, params }: HttpContextContract) {
@@ -60,7 +58,6 @@ export default class OauthController {
         avatarUrl: providedUser.avatarUrl,
         oauthToken: providedUser.token.token,
         emailVerifiedAt: DateTime.now(),
-        // password: 
       })
     }
 
