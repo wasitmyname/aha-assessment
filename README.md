@@ -58,6 +58,8 @@
 
 This is a simple app where users can sign up and sign in from a landing page into a simple dashboard. The landing page can be blank with only two separate links to “Sign Up” and “Sign In”. The simple dashboard can only be accessed after the user signs up or signs in.
 
+Api docs is available [here](https://spotless-top-hat-moth.cyclic.app/docs)
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
@@ -120,13 +122,22 @@ Installation is possible without local dependencies relying on [Docker](https://
 
 
 <!-- USAGE EXAMPLES -->
+<a name="usage"></a>
 ## Usage
 
 To have a quick showcase of the app, a demo account is provided with below credential. Just please don't change the password so others can use same account later on.
 Sessions is set to only 5 minutes so don't be suprised to get logged out when you left browser idle.
 
 Email: johndoe@aha-assessment.test
+\
 Password: johndoe
+
+Api docs is available [here](https://spotless-top-hat-moth.cyclic.app/docs).
+It's protected with simple auth to prevent unwanted access.
+
+Username: user
+\
+Password: pass
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -148,7 +159,7 @@ Password: johndoe
 - [x] Cookies (Remember Me) and Logout
 - [x] User Database Dashboard
 - [x] User Statistics
-- [ ] API Endpoints
+- [x] API Endpoints
 - [ ] Bug Finding
 
 See the [open issues](https://github.com/wakjoko/aha-assessment/issues) for a full list of proposed features (and known issues).
