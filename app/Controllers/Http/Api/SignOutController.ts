@@ -9,7 +9,6 @@ export default class SignOutController {
     if (auth.user) {
       user = auth.user
     }
-    // const userId = auth.user!.id
     
     await auth.logout()
 
@@ -20,6 +19,6 @@ export default class SignOutController {
       Event.emit('user:inactive', user)
     }
 
-    return response.redirect().toRoute('signin.show')
+    return response.ok({ message: 'Ok' })
   }
 }

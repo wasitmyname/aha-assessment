@@ -4,21 +4,29 @@ import Messages from './Messages'
 
 export default class ChangePasswordValidator extends Messages {
   constructor(protected ctx: HttpContextContract) {
-    super()
+    super(ctx)
   }
 
   public schema = schema.create({
     old_password: schema.string([
       rules.oldPasswordMatch(this.ctx.auth.user!.password)
     ]),
-    password: schema.string([
-      rules.required(),
-      rules.confirmed(),
+    password: schema.string(this.passwordRules())
+  })
+
+  private passwordRules() {
+    let criteria = [
       rules.hasLowercase(),
       rules.hasUppercase(),
       rules.hasDigit(),
       rules.hasSymbol(),
       rules.minLength(8)
-    ])
-  })
+    ]
+
+    if (this.ctx.auth.defaultGuard === 'web') {
+      criteria.push(rules.confirmed())
+    }
+
+    return criteria
+  }
 }

@@ -1,0 +1,28 @@
+/api/profile:
+  post:
+    description: My Profile
+    # requestBody:
+    #   required: true
+    #   content:
+    #       application/json:
+    #         schema:
+    #           properties:
+    #             email:
+    #               type: string
+    #               # example: 'johndoe@aha-assessment.test'
+    #               example: 'wakjoko@gmail.com'
+    #               required: true
+    #             password:
+    #               type: string
+    #               # example: 'johndoe'
+    #               example: 'a'
+    #               required: true
+    responses:
+      200:
+        description: Ok
+      401:
+        description: Unauthorized
+      # 403:
+      #   description: Email is not yet verified.
+      # 422:
+      #   description: Invalid request body.

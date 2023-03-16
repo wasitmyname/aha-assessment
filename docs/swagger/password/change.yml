@@ -1,0 +1,24 @@
+/api/password/change:
+  post:
+    description: Change My Password
+    requestBody:
+      required: true
+      content:
+          application/json:
+            schema:
+              properties:
+                old_password:
+                  type: string
+                  example: 'Your current password'
+                  required: true
+                password:
+                  type: string
+                  example: 'Your new password'
+                  required: true
+    responses:
+      200:
+        description: Ok
+      401:
+        description: Unauthorized
+      422:
+        description: Unprocessable Entity

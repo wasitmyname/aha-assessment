@@ -1,4 +1,10 @@
+import { validator } from '@ioc:Adonis/Core/Validator'
+import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 export default class Messages {
+  constructor(protected ctx: HttpContextContract) {}
+
+  public reporter = validator.reporters[this.ctx.auth.name]
+
   public messages = {
     minLength: "{{ field }} must be at least {{ options.minLength }} long",
     maxLength: "{{ field }} must be less then {{ options.maxLength }} long",
@@ -8,6 +14,6 @@ export default class Messages {
     hasDigit: "{{ field }} must contains a number",
     hasSymbol: "{{ field }} must contains a symbol",
     email: "{{ field }} address is invalid",
-    oldPasswordMatch: "{{ field }} does not match with existing password",
+    oldPasswordMatch: "{{ field }} does not match with our record",
   }
 }

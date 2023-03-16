@@ -123,8 +123,9 @@ Installation is possible without local dependencies relying on [Docker](https://
 ## Usage
 
 To have a quick showcase of the app, a demo account is provided with below credential. Just please don't change the password so others can use same account later on.
+Sessions is set to only 5 minutes so don't be suprised to get logged out when you left browser idle.
 
-Email: johndoe@domain.test
+Email: johndoe@aha-assessment.test
 Password: johndoe
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>

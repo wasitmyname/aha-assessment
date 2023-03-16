@@ -23,6 +23,12 @@
       ],
       "Database/*": [
         "./database/*"
+      ],
+      "HttpControllers/*": [
+        "./app/Controllers/Http/*"
+      ],
+      "Routes/*": [
+        "./routes/*"
       ]
     },
     "types": [
@@ -35,7 +41,8 @@
       "@adonisjs/lucid",
       "@adonisjs/auth",
       "@adonisjs/mail",
-      "@adonisjs/ally"
+      "@adonisjs/ally",
+      "adonis5-swagger"
     ]
   }
 }

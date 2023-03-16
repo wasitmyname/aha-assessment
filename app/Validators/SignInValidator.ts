@@ -4,18 +4,15 @@ import Messages from './Messages'
 
 export default class SignInValidator extends Messages {
   constructor(protected ctx: HttpContextContract) {
-    super()
+    super(ctx)
   }
 
   public schema = schema.create({
     email: schema.string([
-      rules.required(),
       rules.email(),
       rules.trim()
     ]),
-    password: schema.string([
-      rules.required()
-    ]),
+    password: schema.string(),
     remember: schema.boolean.optional()
   })
 }

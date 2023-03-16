@@ -1,6 +1,4 @@
 import type { ApplicationContract } from '@ioc:Adonis/Core/Application'
-// import { SendinblueDriver } from '../drivers/sendinblue/driver'
-// import { DatabaseDriver } from '../drivers/session/databaseDriver'
 
 export default class AppProvider {
   public static needsApplication = true
@@ -13,12 +11,8 @@ export default class AppProvider {
   }
 
   public async boot () {
-    const { SendinblueDriver } = await import('../drivers/sendinblue/driver')
-    const Mail = this.app.container.use('Adonis/Addons/Mail')
-
-    Mail.extend('sendinblue', (_mail, _mapping, config) => {
-      return new SendinblueDriver(config)
-    })
+    this.registerSendinblueDriver()
+    this.registerValidationFailedApiResponse()    
   }
 
   public async ready () {
@@ -27,5 +21,23 @@ export default class AppProvider {
 
   public async shutdown () {
     // Cleanup, since app is going down
+  }
+
+  private async registerSendinblueDriver() {
+    const { SendinblueDriver } = await import('../drivers/sendinblue/driver')
+    const Mail = this.app.container.use('Adonis/Addons/Mail')
+
+    Mail.extend('sendinblue', (_mail, _mapping, config) => {
+      return new SendinblueDriver(config)
+    })
+  }
+
+  private async registerValidationFailedApiResponse() {
+    const Response = this.app.container.use('Adonis/Core/Response')
+
+    Response.macro('validationFailed', function (status, message) {
+      this.status(status).json({ message })
+      return this
+    })
   }
 }

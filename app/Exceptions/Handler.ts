@@ -14,6 +14,7 @@
 */
 
 import Logger from '@ioc:Adonis/Core/Logger'
+import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import HttpExceptionHandler from '@ioc:Adonis/Core/HttpExceptionHandler'
 
 export default class ExceptionHandler extends HttpExceptionHandler {
@@ -25,5 +26,28 @@ export default class ExceptionHandler extends HttpExceptionHandler {
 
   constructor () {
     super(Logger)
+  }
+
+  public async handle(error: any, ctx: HttpContextContract) {
+    if (ctx.auth.defaultGuard === 'web') {
+      return super.handle(error, ctx)
+    }
+    
+    /**
+     * Massage exception message on api endpoints
+     */
+    if (ctx.auth.defaultGuard === 'api') {
+      switch (error.constructor.name) {
+        case 'ValidationException':
+          ctx.response.validationFailed(error.status, error.messages.errors[0].message)
+          break;
+        case 'AuthenticationException':
+          ctx.response.unauthorized()
+          break;
+      
+        default:
+          return super.handle(error, ctx)
+      }
+    }
   }
 }

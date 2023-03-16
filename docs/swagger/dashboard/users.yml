@@ -1,0 +1,22 @@
+/api/dashboard/users:
+  post:
+    description: Users Listing
+    requestBody:
+      required: false
+      content:
+          application/json:
+            schema:
+              properties:
+                page:
+                  type: number
+                  example: 1
+                  required: false
+                limit:
+                  type: number
+                  example: 20
+                  required: false
+    responses:
+      200:
+        description: Ok
+      401:
+        description: Unauthorized

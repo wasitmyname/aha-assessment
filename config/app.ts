@@ -27,7 +27,6 @@ import type { ValidatorConfig } from '@ioc:Adonis/Core/Validator'
 */
 export const appKey: string = Env.get('APP_KEY')
 export const url: string = Env.get('APP_URL')
-// export const appUrl: string = 'http' + (Env.get('NODE_ENV') == 'production' ? 's' : '') + '://' + (Env.get('NODE_ENV') != 'production' ? Env.get('HOST') + ':' + Env.get('PORT') : Env.get('HOST'))
 
 /*
 |--------------------------------------------------------------------------

@@ -4,12 +4,11 @@ import Messages from './Messages'
 
 export default class NewLinkValidator extends Messages {
   constructor(protected ctx: HttpContextContract) {
-    super()
+    super(ctx)
   }
 
   public schema = schema.create({
     email: schema.string([
-      rules.required(),
       rules.email(),
       rules.trim()
     ])

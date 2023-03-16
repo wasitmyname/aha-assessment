@@ -6,13 +6,17 @@
     <div class="col auth-main-col text-center p-5">
         <div class="d-flex flex-column align-content-end">
             <div class="m-auto text-center">
-                <h1 class="text-center mb-5">Welcome</h1>
+                <h1 class="text-center mb-3">Welcome</h1>
                 <p>Please <a href="{{ route('signup.show') }}" class="text-decoration-none">sign up</a> or <a href="{{ route('signin.show') }}" class="text-decoration-none">sign in</a> to start.</p>
                 <p class="mb-0">Incase you've signed up and having problem signing in.</p>
                 <p>Most probably you may forgot to verify your email, you can always get a new verification link <a href="{{ route('link.show') }}" class="text-decoration-none">here</a>.</p>
-            </div>
-            <div class="m-auto text-center">
-                <p>Codebase hosted at <a href="https://github.com/wakjoko/aha-assessment" target="_blank" class="text-decoration-none">Github</a>.</p>
+
+                <h2 class="text-center mt-5 mb-3">Recommendation</h2>
+                <p>A demo account is provided at <a href="{{ route('signin.show') }}" class="text-decoration-none">sign in page</a> so you can have a quick showcase of this app.</p>
+                <p>To dive deeper, read the guides at <a href="https://github.com/wakjoko/aha-assessment" target="_blank" class="text-decoration-none">Github</a> to get started.</p>
+
+                <h2 class="text-center mt-5 mb-3">Notes</h2>
+                <p>Sessions is set to only 5 minutes so don't be suprised to get logged out when you left browser idle.</p>
             </div>
             <footer class="app-auth-footer">
             @include('includes/license')

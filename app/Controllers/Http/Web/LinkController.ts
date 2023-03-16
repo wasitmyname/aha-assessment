@@ -20,7 +20,7 @@ export default class LinkController {
       if (user) {
         new SendVerifyEmailCase(user.email)
       }
-    } catch (_error) {}
+    } catch (error) {}
 
     return response.redirect().toRoute('link.sent')
   }
@@ -44,7 +44,7 @@ export default class LinkController {
       await user.merge({ emailVerifiedAt: DateTime.now() }).save()
     }
 
-    await auth.use('web').login(user)
+    await auth.login(user)
 
     return response.redirect().toRoute('dashboard.show')
   }

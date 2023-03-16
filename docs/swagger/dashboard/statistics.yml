@@ -1,0 +1,8 @@
+/api/dashboard:
+  post:
+    description: Dashboard Statistics
+    responses:
+      200:
+        description: Ok
+      401:
+        description: Unauthorized

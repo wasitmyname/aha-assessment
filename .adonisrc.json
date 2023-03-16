@@ -5,14 +5,17 @@
         "@adonisjs/core/build/commands/index.js",
         "@adonisjs/repl/build/commands",
         "@adonisjs/lucid/build/commands",
-        "@adonisjs/mail/build/commands"
+        "@adonisjs/mail/build/commands",
+        "adonis5-swagger/build/commands"
     ],
     "exceptionHandlerNamespace": "App/Exceptions/Handler",
     "aliases": {
         "App": "app",
         "Config": "config",
         "Database": "database",
-        "Contracts": "contracts"
+        "Contracts": "contracts",
+        "HttpControllers": "app/Controllers/Http",
+        "Routes": "routes"
     },
     "preloads": [
         "./start/routes",
@@ -29,7 +32,8 @@
         "@adonisjs/lucid",
         "@adonisjs/auth",
         "@adonisjs/mail",
-        "@adonisjs/ally"
+        "@adonisjs/ally",
+        "adonis5-swagger"
     ],
     "metaFiles": [{
             "pattern": "public/**",

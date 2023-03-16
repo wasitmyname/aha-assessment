@@ -113,15 +113,4 @@ export default sessionConfig({
   |
   */
   redisConnection: 'local',
-  
-  /*
-  |--------------------------------------------------------------------------
-  | Database driver
-  |--------------------------------------------------------------------------
-  |
-  | The database connection you want session driver to use
-  |
-  */
-  database: {},
-  memory: {},
 })
