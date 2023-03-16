@@ -4,8 +4,9 @@
     "private": true,
     "scripts": {
         "dev": "node ace serve --watch",
-        "build": "node ace generate:manifest && node ace swagger:generate && node ace migration:run --force && node ace build --production",
-        "start": "node ./build/server.js"
+        "build": "node ace migration:run --force && node ace build --production",
+        "start": "node ./build/server.js",
+        "postbuild": "node ace generate:manifest && node ace swagger:generate && cp -a docs/ build/docs"
     },
     "devDependencies": {
         "@adonisjs/assembler": "^5.9.5",
