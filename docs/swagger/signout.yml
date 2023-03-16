@@ -1,28 +1,8 @@
 /api/signout:
   post:
+    tags:
+        - Authentication
     description: Sign Out
-    # requestBody:
-    #   required: true
-    #   content:
-    #       application/json:
-    #         schema:
-    #           properties:
-    #             email:
-    #               type: string
-    #               # example: 'johndoe@aha-assessment.test'
-    #               example: 'wakjoko@gmail.com'
-    #               required: true
-    #             password:
-    #               type: string
-    #               # example: 'johndoe'
-    #               example: 'a'
-    #               required: true
     responses:
       200:
         description: Ok
-      # 400:
-      #   description: Email or password is incorrect.
-      # 403:
-      #   description: Email is not yet verified.
-      # 422:
-      #   description: Invalid request body.

@@ -1,5 +1,7 @@
 /api/profile/updateName:
   post:
+    tags:
+        - Authenticated
     description: Update My Name
     requestBody:
       required: true

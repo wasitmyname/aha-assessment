@@ -1,5 +1,7 @@
 /api/link/get:
   post:
+    tags:
+        - Unauthenticated
     description: Get A Link To Verify Email
     requestBody:
       required: true

@@ -1,5 +1,7 @@
 /api/signin:
   post:
+    tags:
+        - Authentication
     description: Sign In
     security: []
     requestBody:

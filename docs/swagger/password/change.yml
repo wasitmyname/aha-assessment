@@ -1,5 +1,7 @@
 /api/password/change:
   post:
+    tags:
+        - Authenticated
     description: Change My Password
     requestBody:
       required: true

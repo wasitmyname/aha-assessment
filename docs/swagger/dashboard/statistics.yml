@@ -1,5 +1,7 @@
 /api/dashboard:
   post:
+    tags:
+        - Authenticated
     description: Dashboard Statistics
     responses:
       200:

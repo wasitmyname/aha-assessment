@@ -1,5 +1,7 @@
 /api/dashboard/users:
   post:
+    tags:
+        - Authenticated
     description: Users Listing
     requestBody:
       required: false
